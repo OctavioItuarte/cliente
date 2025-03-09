@@ -1,4 +1,4 @@
-export class Product{
+export class User{
     _id?: number;
     e_mail: string;
     name: string;
