@@ -1,0 +1,32 @@
+<table>
+    <thead>
+            @if (listaUsuarios.length > 0){
+            <tr>
+                <th *ngFor="let atributo of getNameAtribute()">
+                    
+                        {{atributo}}
+                    
+                </th>
+            </tr>
+            }
+            
+            @else {
+                <tr>
+                    No hay usuarios para ver
+                </tr>
+            }
+        
+    </thead>
+    <tbody>
+        @for (usuario of listaUsuarios; track usuario.e_mail) {
+            <tr>
+            @for(valor of getValoresAtributos(usuario); track valor){
+                    <td>{{valor}}</td>
+            }
+            </tr>
+        }
+        @empty {
+            Dato inexistente
+        }
+    </tbody>
+</table>
