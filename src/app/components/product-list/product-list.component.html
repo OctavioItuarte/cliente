@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+      <!-- Lista de productos (8 columnas) -->
+      <div class="col-md-8">
+        <h2>Lista de Productos</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                Imagen
+            </th>
+              <th>Nombre</th>
+              <th>Descripcion</th>
+              <th>Precio unitario</th>
+              <th>Stock</th>
+              <th>Cant</th>
+              <th>Compra</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (product of products; track product.name) {
+              <tr>
+                <td>
+                  <img width="90" height="90" class="img-thumbnail"
+                    [src]="product.img" [alt]="product.name">
+                </td>
+                <td>{{product.name}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.price}}</td>
+                @if (product.stock > 0) {
+                  <td></td>
+                  <td>
+                    <button class="btn btn-primary btn-sm" (click)="downQuantity(product)">-</button>
+                    {{product.quantity}}
+                    <button class="btn btn-primary btn-sm" (click)="upQuantity(product)">+</button>
+                  </td>
+                  <td>
+                    <button class="btn btn-primary btn-sm" (click)="addToCart(product)">Agregar al carrito</button>
+                  </td>
+                } @else {
+                  <td><span class="badge text-bg-warning">Sin stock</span></td>
+                }
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="7">No hay productos para mostrar</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Sección del carrito (4 columnas) -->
+      <div class="col-md-4">
+        <app-cart></app-cart> <!-- Aquí se carga el carrito -->
+      </div>
+    </div>
+</div>

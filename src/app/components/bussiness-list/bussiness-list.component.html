@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <!-- Lista de tiendas (8 columnas) -->
+    <div class="col-md-8">
+      <h2>Lista de Tiendas</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Telefono</th>
+            <th>Categoria</th>
+            <th>Productos</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (business of businesses; track business._id) {
+            <tr>
+              <td>{{business.name}}</td>
+              <td>{{business.address}}</td>
+              <td>{{business.phone_number}}</td>
+              <td>{{business.category}}</td>
+              <td>
+                <button class="btn btn-primary btn-sm">Ver Productos</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="3">No hay tiendas disponibles</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <!-- Sección del carrito (4 columnas) -->
+    <div class="col-md-4">
+      <app-cart></app-cart>
+    </div>
+  </div>
+</div>
