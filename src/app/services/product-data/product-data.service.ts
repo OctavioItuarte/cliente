@@ -24,9 +24,13 @@ export class ProductDataService {
     return this.http.post(`${URL}/products`, product, {headers,withCredentials:true});
   }
 
-  //putBusinessProducts(idProduct: string, bodyUpdate: string){}
+  putBusinessProduct(idProduct: string, bodyUpdate: any){
+    console.log(bodyUpdate);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put(`${URL}/products/${idProduct}`, bodyUpdate, {headers,withCredentials:true});
+  }
 
-  deleteBusinessProduct(idProduct: string){
+  deleteBusinessProduct(idProduct: any){
     return this.http.delete(`${URL}/products/${idProduct}`, {withCredentials:true});
   }
 }

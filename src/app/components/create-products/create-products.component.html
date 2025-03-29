@@ -95,12 +95,12 @@
                     <img [src]="product.image" [alt]="product.name" class="img-thumbnail" width="100" height="100">
                 </td>
                 <td>
-                    <!--{{product.last_change | date:'dd/MM/yyyy HH:mm'}}-->
+                    {{product.last_change | date:'dd/MM/yyyy HH:mm'}}
                 </td>
                 <td>
                     <div>
                         <button class="btn btn-warning" (click)="activateEdit(product)">Editar</button>
-                        @if (updatingProduct == product.name){
+                        @if (updatingProduct == product._id){
                             <i class="bi bi-pencil m-2"></i>
                         }
                     </div>

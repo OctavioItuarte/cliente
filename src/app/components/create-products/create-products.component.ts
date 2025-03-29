@@ -15,39 +15,27 @@ import { HttpClient } from '@angular/common/http';
 export class CreateProductsComponent implements OnInit{
 
   constructor(private productDataService:ProductDataService, private http:HttpClient){}
-/*
-  products_list: Product[] =[
-    {
-      name: "Aceite de girasol",
-      email_business:"tienda@gmail.com",
-      description: "Buena calidad",
-      price: 1000,
-      stock: 40,
-      image: "",
-      last_change: new Date(2025, 2, 18)
-    }
-  ];*/
 
   products_list: Product[] =[];
   ngOnInit(): void {
     const URL = "http://localhost:3000";
     this.productDataService
-    this.http.post(`${URL}/login/password`, {"admin":"admin@gmail.com", "password":"milka"}, { withCredentials: true })
+    this.http.post(`${URL}/login/password`, {"username":"milka@gmail.com", "password":"milka"}, { withCredentials: true })
     .subscribe(response =>{
       console.log("Response completa:", response);
-      this.http.get<Product[]>(`${URL}/products/67e4977af6573034da41f206`, { withCredentials: true })
-    .subscribe(
-      products => {this.products_list = products;
+      this.http.get<Product[]>(`${URL}/products/67e64527c00309265662cb1b`, { withCredentials: true })
+      .subscribe(
+      products => {
+        this.products_list = products;
         console.log("Response completa:", products);
       });
-    }
-    );
+    });
 
   }
 
-  new_product:Product={id_business:"",description:"", name:"",price:0,stock:0,image:""};
+  new_product:Product={_id:"",_id_business:"",description:"", name:"",price:0,stock:0,image:"",last_change:new Date()};
 
-  changed_product: Product={id_business:"",description:"", name:"",price:0,stock:0,image:""};
+  changed_product: Product={_id:"",_id_business:"",description:"", name:"",price:0,stock:0,image:"",last_change:new Date()};
 
   selectedRows: Set<number> = new Set();  // Almacenará los índices de las filas seleccionadas
 
@@ -71,24 +59,28 @@ export class CreateProductsComponent implements OnInit{
   // Función para eliminar las filas seleccionadas
   deleteSelected() {
 
+    this.selectedRows.forEach((i)=>
+      {
+        var id=this.products_list[i]._id;
+        this.productDataService.deleteBusinessProduct(id).subscribe(response=>console.log(response));
+    });
 
-
-    this.products_list = this.products_list.filter((_, index) => !this.selectedRows.has(index));
+    //this.products_list = this.products_list.filter((_, index) => !this.selectedRows.has(index));
     this.selectedRows.clear();  // Limpiar las filas seleccionadas después de eliminar
   }
 
   updatingProduct: string | null = null;
   
   activateEdit(product: Product){
-    this.updatingProduct = product.name;
+    this.updatingProduct = product._id;
     this.changed_product = product;
     this.new_product = { ...product };
   }
 
   updateProduct(){
     // ------------------------ AGREGAR PETICION PARA ACTUALIZAR EL PRODUCTO
-
-    //this.productDataService.putBusinessProduct();
+    var product= {...this.new_product};
+    this.productDataService.putBusinessProduct(this.changed_product._id, JSON.stringify(product)).subscribe(response=>console.log(response));
 
     this.changed_product && (this.changed_product.name = this.new_product.name);
     this.changed_product && (this.changed_product.description = this.new_product.description);
@@ -96,7 +88,7 @@ export class CreateProductsComponent implements OnInit{
     this.changed_product && (this.changed_product.stock = this.new_product.stock);
     this.changed_product && (this.changed_product.image = this.new_product.image);
 
-    this.changed_product = {id_business:"",description:"", name:"",price:0,stock:0,image:""};
+    this.changed_product = {_id:"",_id_business:"",description:"", name:"",price:0,stock:0,image:"",last_change:new Date()};
 
     this.updatingProduct = null;
   }
