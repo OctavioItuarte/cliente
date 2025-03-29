@@ -1,19 +1,21 @@
-export class User{
-    _id?: string;
-    e_mail: string;
-    firstName: string;
-    lastName: string;
-    password: string;
+export interface User{
+    _id: string;
+    email: string;
+    name: {
+        firstName:string,
+        lastName:string
+    };
     birthdate: Date;
+    phone_number: string;
     approve: boolean;
     entry_date: Date;
 
-    constructor(e_mail:string, firstName: string, lastName: string, password: string, birthdate: Date, approve: boolean, entry_date: Date){
+    constructor(e_mail:string, name: string, password: string, birthdate: Date, phone_number: string, approve: boolean, entry_date: Date){
         this.e_mail= e_mail;
-        this.firstName= firstName;
-        this.lastName= lastName;
+        this.name=name;
         this.password=password;
         this.birthdate=birthdate;
+        this.phone_number=phone_number;
         this.approve=approve;
         this.entry_date=entry_date;
     }
