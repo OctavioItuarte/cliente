@@ -7,4 +7,5 @@ export interface Product{
     stock: number;
     image: string;
     last_change: Date;
+    quantity: number;
 }

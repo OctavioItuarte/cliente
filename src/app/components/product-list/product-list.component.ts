@@ -13,30 +13,36 @@ export class ProductListComponent {
   products: Product[] = [
     {
       _id: '1',
+      _id_business: '3',
       name:'Heineken',
       price: 100,
       description: 'Muy buena la holandesa',
       stock: 3,
       quantity:0,
-      img:"assets/img/productoSinImagen.jpeg"
+      image:"assets/img/productoSinImagen.jpeg",
+      last_change:new Date()
     },
     {
       _id: '2',
+      _id_business: '3',
       name:'Stella Artois',
       price: 120,
       description: 'Muy buena la belga',
       stock: 5,
       quantity:0,
-      img:"assets/img/productoSinImagen.jpeg"
+      image:"assets/img/productoSinImagen.jpeg",
+      last_change:new Date()
     },
     {
       _id: '3',
+      _id_business: '3',
       name:'Quilmes',
       price: 120,
       description: 'Muy buena la argentina',
       stock: 0,
       quantity:0,
-      img:"assets/img/productoSinImagen.jpeg"
+      image:"assets/img/productoSinImagen.jpeg",
+      last_change:new Date()
     }
   ]
 

@@ -33,9 +33,9 @@ export class CreateProductsComponent implements OnInit{
 
   }
 
-  new_product:Product={_id:"",_id_business:"",description:"", name:"",price:0,stock:0,image:"",last_change:new Date()};
+  new_product:Product={_id:"",_id_business:"",description:"", name:"",price:0,stock:0,image:"",last_change:new Date(),quantity:0};
 
-  changed_product: Product={_id:"",_id_business:"",description:"", name:"",price:0,stock:0,image:"",last_change:new Date()};
+  changed_product: Product={_id:"",_id_business:"",description:"", name:"",price:0,stock:0,image:"",last_change:new Date(),quantity:0};
 
   selectedRows: Set<number> = new Set();  // Almacenará los índices de las filas seleccionadas
 
@@ -88,7 +88,7 @@ export class CreateProductsComponent implements OnInit{
     this.changed_product && (this.changed_product.stock = this.new_product.stock);
     this.changed_product && (this.changed_product.image = this.new_product.image);
 
-    this.changed_product = {_id:"",_id_business:"",description:"", name:"",price:0,stock:0,image:"",last_change:new Date()};
+    this.changed_product = {_id:"",_id_business:"",description:"", name:"",price:0,stock:0,image:"",last_change:new Date(),quantity:0};
 
     this.updatingProduct = null;
   }

@@ -12,36 +12,33 @@ export class BussinessListComponent {
   businesses: Business[] = [
     {
      _id: '8',
-      e_mail: 'panaderia_el_trigo@example.com',
+     email: 'panaderia_el_trigo@example.com',
+     cuit: '12454564',
      name: 'Panadería El Trigo',
-     password: 'hashed_password_123',
      address: 'Av. Siempre Viva 123, Buenos Aires',
-     phone_number: '+54 9 11 1234-5678',
+     phoneNumber: '+54 9 11 1234-5678',
      category: 'Panadería',
-     approve: true,
-     entry_date: new Date(),
+     registration_date: new Date()
     },
     {
       _id: '9',
-      e_mail: 'carniceria_tomas@example.com',
+      email: 'carniceria_tomas@example.com',
+      cuit: '12454564',
      name: 'Carniceria Tomas',
-     password: 'hashed_password_143',
      address: 'Av. 9 de julio 738, Buenos Aires',
-     phone_number: '+54 9 11 1234-5678',
+     phoneNumber: '+54 9 11 1234-5678',
      category: 'Carniceria',
-     approve: true,
-     entry_date: new Date(),
+     registration_date: new Date(),
     },
     {
       _id: '10',
-      e_mail: 'roma_mates@example.com',
+      email: 'roma_mates@example.com',
      name: 'Roma Mates',
-     password: 'hashed_password_122',
+     cuit: '12454564',
      address: 'Av. de los mates 564, Buenos Aires',
-     phone_number: '+54 9 11 1234-5678',
+     phoneNumber: '+54 9 11 1234-5678',
      category: 'Mates',
-     approve: true,
-     entry_date: new Date(),
+     registration_date: new Date(),
     }
   ]
 }

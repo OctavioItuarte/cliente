@@ -25,7 +25,6 @@ export class ProductDataService {
   }
 
   putBusinessProduct(idProduct: string, bodyUpdate: any){
-    console.log(bodyUpdate);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put(`${URL}/products/${idProduct}`, bodyUpdate, {headers,withCredentials:true});
   }
