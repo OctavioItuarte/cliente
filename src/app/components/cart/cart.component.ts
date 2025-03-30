@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { CartService } from '../../services/cart.service';
+import { CartService } from '../../services/cart/cart.service';
 import { Product } from '../../models/product';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -14,7 +14,7 @@ export class CartComponent {
   cartList$: Observable<Product[]>;
 
   constructor(private cart: CartService){
-   this.cartList$ = cart.cartList.asObservable();
+    this.cartList$ = cart.cartList.asObservable();
   }
 
   addToCart(product: Product): void{

@@ -1,0 +1,38 @@
+<form class="mt-5 min-vh-100">
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email"><br>
+
+    <label for="password">Contraseña:</label><br>
+    <input type="text" id="password" name="password">
+
+    <input type="checkbox" id="signupUser" class="form-check-input" [(ngModel)] = "checkedSignupUser">
+    <input type="checkbox" id="signupBusiness" class="form-check-input" [(ngModel)] = "checkedSignupBusiness">
+
+    @if(checkedSignupUser){
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="fname"><br>
+        
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lname">
+
+        <label for="birthdate">Fecha de cumpleaños:</label><br>
+        <input type="date" id="birthdate" >
+
+        <label for="phoneNumber">Numero de telefono:</label><br>
+        <input type="text" id="phoneNumber">
+    }
+    @if(checkedSignupBusiness){
+        <label for="cuit">CUIT:</label><br>
+        <input type="text" id="cuit">
+
+        <label for="address">Numero de telefono:</label><br>
+        <input type="text" id="address">
+
+        <label for="phoneNumber">Numero de telefono:</label><br>
+        <input type="text" id="phoneNumber">
+
+        <label for="category">Categoria:</label><br>
+        <input type="text" id="category">
+    }
+    
+</form>

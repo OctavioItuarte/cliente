@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product';
-import { CartService } from '../../services/cart.service';
+import { CartService } from '../../services/cart/cart.service';
 import { CartComponent } from '../cart/cart.component';
+import { ProductDataService } from '../../services/product-data/product-data.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -9,8 +11,9 @@ import { CartComponent } from '../cart/cart.component';
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
-export class ProductListComponent {
-  products: Product[] = [
+export class ProductListComponent implements OnInit{
+  products: Product[] = [];
+  /*
     {
       _id: '1',
       _id_business: '3',
@@ -44,10 +47,25 @@ export class ProductListComponent {
       image:"assets/img/productoSinImagen.jpeg",
       last_change:new Date()
     }
-  ]
+  ]*/
 
 
-  constructor(private cart: CartService) {  
+  constructor(private cart: CartService, private productDataService:ProductDataService, private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    var idBusiness: string;
+    this.route.params.subscribe(response=>
+      {
+        console.log(response);
+        idBusiness=response["idBusiness"];
+        console.log(idBusiness);
+        this.productDataService.getBusinessProducts(idBusiness)
+        .subscribe(response=>
+          {
+            this.products=response;
+            this.products.forEach(product => product.quantity=0);
+          });
+      });
   }
 
   addToCart(product:Product): void{

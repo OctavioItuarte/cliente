@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './create-products.component.html',
   styleUrl: './create-products.component.css'
 })
+
 export class CreateProductsComponent implements OnInit{
 
   constructor(private productDataService:ProductDataService, private http:HttpClient){}
@@ -20,10 +21,10 @@ export class CreateProductsComponent implements OnInit{
   ngOnInit(): void {
     const URL = "http://localhost:3000";
     this.productDataService
-    this.http.post(`${URL}/login/password`, {"username":"milka@gmail.com", "password":"milka"}, { withCredentials: true })
+    this.http.post(`${URL}/login/password`, {"username":"kiosko@gmail.com", "password":"kiosko"}, { withCredentials: true })
     .subscribe(response =>{
       console.log("Response completa:", response);
-      this.http.get<Product[]>(`${URL}/products/67e64527c00309265662cb1b`, { withCredentials: true })
+      this.http.get<Product[]>(`${URL}/products/67e4977af6573034da41f206`, { withCredentials: true })
       .subscribe(
       products => {
         this.products_list = products;
@@ -103,8 +104,6 @@ export class CreateProductsComponent implements OnInit{
       product = response as Product;
       this.products_list.push(product);
     });
-  
   }
-  
 }
 

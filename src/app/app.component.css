@@ -1,11 +1,10 @@
-container{
-    padding: 1.5rem;
+.container{
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
     background-color: #2C3E50; /* Color de fondo oscuro */
     color: white; /* Color del texto */
     text-align: center; /* Alineación del texto */

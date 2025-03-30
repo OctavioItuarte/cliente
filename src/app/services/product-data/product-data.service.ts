@@ -16,7 +16,7 @@ export class ProductDataService {
 
   getBusinessProducts(idBusiness: string): Observable<Product[]>{
 
-    return this.http.get<Product[]>(`${URL}/products/${idBusiness}`);
+    return this.http.get<Product[]>(`${URL}/products/${idBusiness}`, {withCredentials:true});
   }
 
   postBusinessProduct(product:any){
