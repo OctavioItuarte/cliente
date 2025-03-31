@@ -15,7 +15,7 @@ export class BussinessListComponent implements OnInit{
 
   constructor(private productDataService:ProductDataService, private http:HttpClient){}
 
-  businesses: Business[] = [];/*
+  businesses: Business[] = 
   [
     {
      _id: '8',
@@ -177,7 +177,7 @@ export class BussinessListComponent implements OnInit{
       category: 'Panadería',
       registration_date: new Date()
      }
-  ];*/
+  ];
 
   ngOnInit(): void {
       const URL="http://localhost:3000";
@@ -188,7 +188,7 @@ export class BussinessListComponent implements OnInit{
             this.http.get<Business[]>(`${URL}/business`, { withCredentials: true })
             .subscribe(
             response => {
-              this.businesses = response;
+              //this.businesses = response;
               console.log("Response completa:", response);
             });
           });

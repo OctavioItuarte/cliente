@@ -1,38 +1,69 @@
-<form class="mt-5 min-vh-100">
-    <label for="email">Email:</label><br>
-    <input type="text" id="email" name="email"><br>
-
-    <label for="password">Contraseña:</label><br>
-    <input type="text" id="password" name="password">
-
-    <input type="checkbox" id="signupUser" class="form-check-input" [(ngModel)] = "checkedSignupUser">
-    <input type="checkbox" id="signupBusiness" class="form-check-input" [(ngModel)] = "checkedSignupBusiness">
-
-    @if(checkedSignupUser){
-        <label for="fname">First name:</label><br>
-        <input type="text" id="fname" name="fname"><br>
-        
-        <label for="lname">Last name:</label><br>
-        <input type="text" id="lname" name="lname">
-
-        <label for="birthdate">Fecha de cumpleaños:</label><br>
-        <input type="date" id="birthdate" >
-
-        <label for="phoneNumber">Numero de telefono:</label><br>
-        <input type="text" id="phoneNumber">
-    }
-    @if(checkedSignupBusiness){
-        <label for="cuit">CUIT:</label><br>
-        <input type="text" id="cuit">
-
-        <label for="address">Numero de telefono:</label><br>
-        <input type="text" id="address">
-
-        <label for="phoneNumber">Numero de telefono:</label><br>
-        <input type="text" id="phoneNumber">
-
-        <label for="category">Categoria:</label><br>
-        <input type="text" id="category">
-    }
-    
-</form>
+<div class="m-5 min-vh-100">
+    <h2 class="mb-4">Sign Up</h2>
+    <form class="p-4 rounded-4 p row">
+        <div class="col-5">
+            <div class="form-group">
+                <input type="email" id="email" name="email" class="form-control" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Ingresa un email" required/><br>
+            
+                <input type="password" id="pwd" name="password" class="form-control" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="Contraseña" required/><br>
+            
+                <input type="password" id="repeated-pwd" name="repeated-password" class="form-control" [(ngModel)]="repeated_pwd" [ngModelOptions]="{standalone: true}" placeholder="Repite la contraseña" required><br>
+            </div>
+            <div class="form-group">
+                <label class="form-check-label font-weight-normal fs-7">
+                    Seleccione tipo de usuario
+                </label><br>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="signupUser" [(ngModel)]="checkedSignup" [ngModelOptions]="{standalone: true}">
+                    <label class="form-check-label font-weight-normal fs-7">
+                        Cliente
+                    </label><br>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="signupBusiness" [(ngModel)]="checkedSignup" [ngModelOptions]="{standalone: true}">
+                    <label class="form-check-label font-weight-normal fs-7">
+                        Tienda
+                    </label><br>
+                </div>
+            </div>
+        </div>
+        @if(checkedSignup==="signupUser"){
+            <div class="col-5">
+                <div class="form-group">
+                    <input type="text" id="fname" name="fname" class="form-control" [(ngModel)]="user_data.name.firstName" [ngModelOptions]="{standalone: true}" placeholder="Nombre"><br>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="lname" name="lname" class="form-control" [(ngModel)]="user_data.name.lastName" [ngModelOptions]="{standalone: true}" placeholder="Apellido"><br>
+                </div>
+                <div class="form-group">
+                    <label class="fw-semibold fs-6" for="birthdate">Fecha de nacimiento</label><br>
+                    <input type="date" id="birthdate" class="form-control" [(ngModel)]="user_data.birthdate" [ngModelOptions]="{standalone: true}"><br>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="phoneNumber" class="form-control" [(ngModel)]="user_data.phoneNumber" [ngModelOptions]="{standalone: true}" placeholder="Número de teléfono"><br>
+                </div>
+                <button type="submit" class="btn btn-primary" (click)="signupUser()">Registrarse</button>
+            </div>
+        }
+        @if(checkedSignup==="signupBusiness"){
+            <div class="col-5">
+                <div class="form-group">
+                    <input type="text" id="name" class="form-control" [(ngModel)]="business_data.name" [ngModelOptions]="{standalone: true}" placeholder="Nombre"><br>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="cuit" class="form-control" [(ngModel)]="business_data.cuit" [ngModelOptions]="{standalone: true}" placeholder="CUIT"><br>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="address" class="form-control" [(ngModel)]="business_data.address" [ngModelOptions]="{standalone: true}" placeholder="Dirección"><br>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="phoneNumber" class="form-control" [(ngModel)]="business_data.phoneNumber" [ngModelOptions]="{standalone: true}" placeholder="Número de teléfono"><br>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="category" class="form-control" [(ngModel)]="business_data.category" [ngModelOptions]="{standalone: true}" placeholder="Categoría"><br>
+                </div>
+                <button type="submit" class="btn btn-primary" (click)="signupBusiness()">Registrarse</button>
+            </div>
+        }
+    </form>
+</div>
