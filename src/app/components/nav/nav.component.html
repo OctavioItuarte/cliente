@@ -1,20 +1,25 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Unicen</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" [routerLink]="['/']">Tiendas</a>
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['/']">Unicen</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-nav">
+        @if (!(userLoginOn$ | async)) {
+          <a class="nav-link" [routerLink]="['/login']">Iniciar sesión</a>
+          <a class="nav-link" [routerLink]="['/signup']">Registrarse</a>
           <a class="nav-link" [routerLink]="['/about']">About</a>
-          @if (!userLoginOn){
-            <a class="nav-link" [routerLink]="['/login']">Iniciar sesión</a>   
+        }
+
+        @if (userLoginOn$ | async) {
+          @if ((userRole$ | async) === 'business') {
+            <a class="nav-link" [routerLink]="['/create-products']">Mis productos</a>
           }
-          @if (userLoginOn){
-            <a class="nav-link" (click)="logout()">Cerrar sesión</a>   
+          @if ((userRole$ | async) === 'user') {
+            <a class="nav-link" [routerLink]="['/business-list']">Tiendas</a>
           }
-        </div>
+          <a class="nav-link" [routerLink]="['/about']">About</a>
+          <a class="nav-link" (click)="logout()" style="cursor: pointer;">Cerrar sesión</a>
+        }
       </div>
     </div>
+  </div>
 </nav>

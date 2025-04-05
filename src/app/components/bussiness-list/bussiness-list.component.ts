@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartComponent } from '../cart/cart.component';
 import { Business } from '../../models/business';
 import { RouterModule } from '@angular/router';
-import { ProductDataService } from '../../services/product-data/product-data.service';
+import { BusinessDataService } from '../../services/business-data/business-data.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -13,10 +13,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BussinessListComponent implements OnInit{
 
-  constructor(private productDataService:ProductDataService, private http:HttpClient){}
+  constructor(private businessDataService:BusinessDataService, private http:HttpClient){}
 
-  businesses: Business[] = 
-  [
+  businesses: Business[] = [];
+  /*[
     {
      _id: '8',
      email: 'panaderia_el_trigo@example.com',
@@ -177,23 +177,12 @@ export class BussinessListComponent implements OnInit{
       category: 'Panadería',
       registration_date: new Date()
      }
-  ];
+  ];*/
 
   ngOnInit(): void {
       const URL="http://localhost:3000";
 
-      this.http.post(`${URL}/login/password`, {"username":"julian@gmail.com", "password":"julian"}, { withCredentials: true })
-          .subscribe(response =>{
-            console.log("Response completa:", response);
-            this.http.get<Business[]>(`${URL}/business`, { withCredentials: true })
-            .subscribe(
-            response => {
-              //this.businesses = response;
-              console.log("Response completa:", response);
-            });
-          });
-  }
-
+      this.businessDataService.getBusiness().subscribe(response=>
+        this.businesses=response)
+      }
 }
-
-

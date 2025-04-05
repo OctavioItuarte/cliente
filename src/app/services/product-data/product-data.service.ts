@@ -15,7 +15,6 @@ export class ProductDataService {
   constructor(private http: HttpClient) { }
 
   getBusinessProducts(idBusiness: string): Observable<Product[]>{
-
     return this.http.get<Product[]>(`${URL}/products/${idBusiness}`, {withCredentials:true});
   }
 

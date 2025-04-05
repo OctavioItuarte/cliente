@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router'; 
 import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms';
 import { NavComponent } from './components/nav/nav.component';
+import { LoginService } from './services/login/login.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,11 @@ import { NavComponent } from './components/nav/nav.component';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'cliente';
+  constructor(private loginService: LoginService) {}
+
+  ngOnInit(): void {
+    this.loginService.checkSession();
+  }
 }

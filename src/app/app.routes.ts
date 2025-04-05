@@ -6,12 +6,15 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { CreateProductsComponent } from './components/create-products/create-products.component';
 import {LoginComponent} from './components/login/login.component'
 import { SignupComponent } from './components/signup/signup.component';
+import { authGuard } from './guards/auth.guard';
+import { roleGuard } from './guards/role.guard';
+
 
 export const routes: Routes = [
-    {path: '',  redirectTo: '/business-list', pathMatch: 'full'},
-    {path: 'create-products', component: CreateProductsComponent},
-    {path: 'product-list/:idBusiness', component: ProductListComponent},
-    {path: 'business-list', component: BussinessListComponent},
+    {path: '',  redirectTo: '/login', pathMatch: 'full'},
+    {path: 'create-products', component: CreateProductsComponent, canActivate: [authGuard, roleGuard(['business'])]},
+    {path: 'product-list/:idBusiness', component: ProductListComponent, canActivate: [authGuard, roleGuard(['user'])]},
+    {path: 'business-list', component: BussinessListComponent, canActivate: [authGuard, roleGuard(['user'])]},
     {path: 'about', component: AboutComponent},
     {path: 'login', component: LoginComponent},
     {path: 'signup', component: SignupComponent},
