@@ -32,7 +32,7 @@ export class LoginService {
           this.userRoleSubject.next(response.user.role);
           this.userLoginOnSubject.next(true);
           // Redirigir según el rol
-          if (response.user.role === 'user') {
+          if (response.user.role === 'client') {
               this.router.navigate(['/business-list']);
           } else if (response.user.role === 'business') {
               this.router.navigate(['/create-products']);

@@ -13,8 +13,8 @@ import { roleGuard } from './guards/role.guard';
 export const routes: Routes = [
     {path: '',  redirectTo: '/login', pathMatch: 'full'},
     {path: 'create-products', component: CreateProductsComponent, canActivate: [authGuard, roleGuard(['business'])]},
-    {path: 'product-list/:idBusiness', component: ProductListComponent, canActivate: [authGuard, roleGuard(['user'])]},
-    {path: 'business-list', component: BussinessListComponent, canActivate: [authGuard, roleGuard(['user'])]},
+    {path: 'product-list/:idBusiness', component: ProductListComponent, canActivate: [authGuard, roleGuard(['client'])]},
+    {path: 'business-list', component: BussinessListComponent, canActivate: [authGuard, roleGuard(['client'])]},
     {path: 'about', component: AboutComponent},
     {path: 'login', component: LoginComponent},
     {path: 'signup', component: SignupComponent},

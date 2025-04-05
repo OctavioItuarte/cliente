@@ -1,14 +1,16 @@
-<div class="m-5 min-vh-100">
-  <h2 class="mb-4">Login</h2>
-  <form class="p-4 rounded-4 row" (submit)="login()">
-    <div class="col-5">
-      <div class="form-group">
-        <input type="email" id="email" name="email" class="form-control" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Ingresa tu email" required/><br>
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+  <div class="login-container p-5 rounded-4 shadow text-center">
+    <h2 class="mb-4">Login</h2>
+    <form (submit)="login()">
+      <div class="form-group mb-3">
+        <input type="email" id="email" name="email" class="form-control"
+          [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Ingresa tu email" required />
       </div>
-      <div class="form-group">
-        <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="Contraseña" required/><br>
+      <div class="form-group mb-4">
+        <input type="password" id="password" name="password" class="form-control"
+          [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="Contraseña" required />
       </div>
-      <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-    </div>
-  </form>
+      <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+    </form>
+  </div>
 </div>

@@ -1,7 +1,7 @@
 export interface Business{
     _id: string;
     email: string;
-    name: string;
+    nameBusiness: string;
     cuit: string;
     address: string;
     phoneNumber: string;

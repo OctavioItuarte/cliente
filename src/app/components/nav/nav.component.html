@@ -13,7 +13,7 @@
           @if ((userRole$ | async) === 'business') {
             <a class="nav-link" [routerLink]="['/create-products']">Mis productos</a>
           }
-          @if ((userRole$ | async) === 'user') {
+          @if ((userRole$ | async) === 'client') {
             <a class="nav-link" [routerLink]="['/business-list']">Tiendas</a>
           }
           <a class="nav-link" [routerLink]="['/about']">About</a>

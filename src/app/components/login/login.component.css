@@ -1,3 +1,10 @@
 form{
     background-color: #ccd2ff;
 }
+
+.login-container {
+    max-width: 400px;
+    width: 100%;
+    background-color: #ccd2ff;
+}
+  

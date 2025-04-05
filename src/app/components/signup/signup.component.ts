@@ -46,7 +46,7 @@ export class SignupComponent {
     this.user_data.email=this.email;
     this.user_data.password=this.password;
 
-    this.signupService.signup('signup/user', this.user_data).subscribe(response=>console.log(response))
+    this.signupService.signup('signup/client', this.user_data).subscribe(response=>console.log(response))
   }
 
   signupBusiness(){
