@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   title = 'cliente';
   constructor(private loginService: LoginService) {}
 
-  ngOnInit(): void {
-    this.loginService.checkSession();
+  ngOnInit() {
+    this.loginService.checkSession().subscribe; 
   }
 }

@@ -16,13 +16,14 @@ import { LoginService } from '../../services/login/login.service';
 
 export class CreateProductsComponent implements OnInit{
 
-  constructor(private productDataService:ProductDataService, private http:HttpClient){}
+  constructor(private productDataService:ProductDataService, private http:HttpClient, private loginService: LoginService){}
 
   products_list: Product[] =[];
   ngOnInit(): void {
     const URL = "http://localhost:3000";
-    //this.productDataService.getBusinessProducts().subscribe(response=> 
-    //  this.products_list=response as Product[])
+    var idBusiness = this.loginService.getIdBusiness();
+    this.productDataService.getBusinessProducts(idBusiness).subscribe(response=> 
+    this.products_list=response as Product[]);
   }
   
   new_product:Product={_id:"",_id_business:"",description:"", name:"",price:0,stock:0,image:"",last_change:new Date(),quantity:0};

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../../models/product';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,15 @@ export class CartService {
   private _cartList: Product[] = [];
   cartList: BehaviorSubject<Product[]> = new BehaviorSubject(this._cartList);
 
-  constructor() { }
+  total$: Observable<number>;
+
+  constructor() {
+    this.total$ = this.cartList.pipe(map(products => this.getTotalPrice(products))
+  );}
+
+  private getTotalPrice(products: Product[]): number {
+    return products.reduce((total, product) => total + (product.price * product.quantity), 0);
+  }
 
   addToCart(product: Product){
     let item: Product | undefined = this._cartList.find((v1) => v1.name == product.name);
@@ -27,6 +35,10 @@ export class CartService {
     } else {
       // Si el producto ya está en el carrito, verifica si la cantidad total no supera el stock
       const totalQuantity = item.quantity + product.quantity;
+      console.log('Item quantity:', item.quantity);
+      console.log('Product quantity:', product.quantity);
+      console.log('Total quantity:', totalQuantity);
+      console.log('Product.stock', product.stock);
       if (totalQuantity <= product.stock) {
         item.quantity = totalQuantity;
         product.stock -= product.quantity;
@@ -36,5 +48,10 @@ export class CartService {
       }
     }
     this.cartList.next(this._cartList)
+  }
+
+  clearCart(): void {
+    this._cartList = []; 
+    this.cartList.next(this._cartList);
   }
 }
