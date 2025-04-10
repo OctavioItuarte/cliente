@@ -12,9 +12,11 @@ import { CommonModule } from '@angular/common';
 })
 export class CartComponent {
   cartList$: Observable<Product[]>;
+  total$: Observable<number>;
 
   constructor(private cart: CartService){
     this.cartList$ = cart.cartList.asObservable();
+    this.total$ = cart.total$;
   }
 
   addToCart(product: Product): void{

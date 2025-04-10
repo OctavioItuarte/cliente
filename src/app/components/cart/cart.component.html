@@ -1,3 +1,28 @@
+<div class="professional-cart">
+    <h3 class="cart-header">
+      <i class="bi bi-cart3"></i> Carrito de Compras
+    </h3>
+    
+    <div class="cart-items">
+      @for (product of (cartList$ | async); track product._id) {
+        <div class="cart-item">
+          <span class="product-name">{{product.name}}</span>
+          <div class="item-details">
+            <span class="product-quantity">{{product.quantity}} {{product.quantity === 1 ? 'unidad' : 'unidades'}}</span>
+            <span class="product-price">{{product.price * product.quantity | currency}}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="cart-footer">
+        <div class="total-section">
+          <span>Total:</span>
+          <span class="total-amount">{{total$ | async | currency}}</span>
+        </div>
+    </div>
+</div>
+<!--
 <h3>Carrito de compras</h3>
 <ul>
     @for (product of (cartList$ | async); track product._id) {
@@ -6,3 +31,4 @@
         </li>
     }
 </ul>
+-->

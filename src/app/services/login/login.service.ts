@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, BehaviorSubject, of } from 'rxjs'; // Importamos 'of' para devolver un observable vacío
-import { tap, catchError } from 'rxjs/operators';
+import { Observable, BehaviorSubject, of} from 'rxjs'; // Importamos 'of' para devolver un observable vacío
+import { tap, catchError} from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { CartService } from '../cart/cart.service';
 
 const URL = 'http://localhost:3000';
 
@@ -16,7 +17,9 @@ export class LoginService {
   userRole$ = this.userRoleSubject.asObservable();
   userLoginOn$ = this.userLoginOnSubject.asObservable();
 
-  constructor(private http: HttpClient,  private router: Router) {
+  private idBusiness = "";
+
+  constructor(private http: HttpClient,  private router: Router,  private cartService: CartService,) {
     //this.checkSession(); // Verificar sesión al iniciar la app
   }
 
@@ -37,16 +40,22 @@ export class LoginService {
           } else if (response.user.role === 'business') {
               this.router.navigate(['/create-products']);
               console.log("el id del negocio es: " + response.user.id);
+              this.idBusiness = response.user.id;
           }
         }
       })
     );
   }
 
+  public getIdBusiness(): string {
+    return this.idBusiness;
+  }
+
   logout(): Observable<any> {
     return this.http.post(`${URL}/logout`, {}, { withCredentials: true }).pipe(
       tap(() => {
-        this.clearSession(); // Se limpia la sesión antes de redirigir
+        this.clearSession();
+        this.cartService.clearCart();
       })
     );
   }
