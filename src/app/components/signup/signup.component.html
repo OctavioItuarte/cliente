@@ -1,65 +1,65 @@
 <div class="m-5 min-vh-100">
     <h2 class="mb-4">Sign Up</h2>
-    <form class="p-4 rounded-4 p row">
+    <form [formGroup]="signUpForm" class="p-4 rounded-4 p row">
         <div class="col-5">
             <div class="form-group">
-                <input type="email" id="email" name="email" class="form-control" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Ingresa un email" required/><br>
+                <input type="email" id="email" class="form-control" formControlName="email" [(ngModel)]="email" placeholder="Ingresa un email" required/><br>
             
-                <input type="password" id="pwd" name="password" class="form-control" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="Contraseña" required/><br>
+                <input type="password" id="pwd" class="form-control" formControlName="pwd" [(ngModel)]="password" placeholder="Contraseña" required/><br>
             
-                <input type="password" id="repeated-pwd" name="repeated-password" class="form-control" [(ngModel)]="repeated_pwd" [ngModelOptions]="{standalone: true}" placeholder="Repite la contraseña" required><br>
+                <input type="password" id="repeated-pwd" class="form-control" formControlName="r_pwd" [(ngModel)]="repeated_pwd" placeholder="Repite la contraseña" required/><br>
             </div>
-            <div class="form-group">
+            <div formGroupName="user">
                 <label class="form-check-label font-weight-normal fs-7">
                     Seleccione tipo de usuario
                 </label><br>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" value="signupUser" [(ngModel)]="checkedSignup" [ngModelOptions]="{standalone: true}">
+                    <input class="form-check-input form-control" formControlName="client" type="radio" name="user" value="signupClient" [(ngModel)]="checkedSignup">
                     <label class="form-check-label font-weight-normal fs-7">
                         Cliente
                     </label><br>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" value="signupBusiness" [(ngModel)]="checkedSignup" [ngModelOptions]="{standalone: true}">
+                    <input class="form-check-input form-control" formControlName="business" type="radio" name="user" value="signupBusiness" [(ngModel)]="checkedSignup">
                     <label class="form-check-label font-weight-normal fs-7">
                         Tienda
                     </label><br>
                 </div>
             </div>
         </div>
-        @if(checkedSignup==="signupUser"){
-            <div class="col-5">
-                <div class="form-group">
-                    <input type="text" id="fname" name="fname" class="form-control" [(ngModel)]="user_data.name.firstName" [ngModelOptions]="{standalone: true}" placeholder="Nombre"><br>
+        @if(checkedSignup==="signupClient"){
+            <div class="col-5 form-group">
+                <div>
+                    <input type="text" id="fname" name="fname" class="form-control" formControlName="fname" [(ngModel)]="user_data.name.firstName" placeholder="Nombre"><br>
                 </div>
-                <div class="form-group">
-                    <input type="text" id="lname" name="lname" class="form-control" [(ngModel)]="user_data.name.lastName" [ngModelOptions]="{standalone: true}" placeholder="Apellido"><br>
+                <div>
+                    <input type="text" id="lname" name="lname" class="form-control" formControlName="lname" [(ngModel)]="user_data.name.lastName" placeholder="Apellido"><br>
                 </div>
-                <div class="form-group">
+                <div>
                     <label class="fw-semibold fs-6" for="birthdate">Fecha de nacimiento</label><br>
                     <input type="date" id="birthdate" class="form-control" [(ngModel)]="user_data.birthdate" [ngModelOptions]="{standalone: true}"><br>
                 </div>
-                <div class="form-group">
+                <div>
                     <input type="text" id="phoneNumber" class="form-control" [(ngModel)]="user_data.phoneNumber" [ngModelOptions]="{standalone: true}" placeholder="Número de teléfono"><br>
                 </div>
                 <button type="submit" class="btn btn-primary" (click)="signupUser()">Registrarse</button>
             </div>
         }
         @if(checkedSignup==="signupBusiness"){
-            <div class="col-5">
-                <div class="form-group">
+            <div class="col-5 form-group">
+                <div>
                     <input type="text" id="name" class="form-control" [(ngModel)]="business_data.name" [ngModelOptions]="{standalone: true}" placeholder="Nombre"><br>
                 </div>
-                <div class="form-group">
+                <div>
                     <input type="text" id="cuit" class="form-control" [(ngModel)]="business_data.cuit" [ngModelOptions]="{standalone: true}" placeholder="CUIT"><br>
                 </div>
-                <div class="form-group">
+                <div>
                     <input type="text" id="address" class="form-control" [(ngModel)]="business_data.address" [ngModelOptions]="{standalone: true}" placeholder="Dirección"><br>
                 </div>
-                <div class="form-group">
+                <div>
                     <input type="text" id="phoneNumber" class="form-control" [(ngModel)]="business_data.phoneNumber" [ngModelOptions]="{standalone: true}" placeholder="Número de teléfono"><br>
                 </div>
-                <div class="form-group">
+                <div>
                     <input type="text" id="category" class="form-control" [(ngModel)]="business_data.category" [ngModelOptions]="{standalone: true}" placeholder="Categoría"><br>
                 </div>
                 <button type="submit" class="btn btn-primary" (click)="signupBusiness()">Registrarse</button>
