@@ -18,6 +18,7 @@ export class SignupComponent implements OnInit{
   constructor(private signupService: SignupService){}
 
   ngOnInit(){
+    this.signUpForm.valueChanges.subscribe(()=>this.clearMessages());
     this.signUpForm.get('selectedUser')?.valueChanges.subscribe(type => {
       this.toggleUserTypeFields(type);
     });
@@ -135,17 +136,46 @@ export class SignupComponent implements OnInit{
     return this.signUpForm.get('selectedUser');
   }
 
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
+  
+  clearMessages(){
+    this.errorMessage=null;
+    this.successMessage=null;
+  }
+
   signupUser(){
     
     if(this.selectedUser?.value==="clientData"){
       let user_data:User = {email:this.email?.value, name:{firstName:this.firstName?.value, lastName:this.lastName?.value}, birthdate:this.birthdate?.value, phoneNumber:this.phoneNumberClient?.value, registration_date:new Date()};
 
-      this.signupService.signup('signup/client', {password:this.password?.value, ...user_data}).subscribe(response=>console.log(response));
+      this.signupService.signup('signup/client', {password:this.password?.value, ...user_data}).subscribe({
+        next: (res) => {
+          this.signUpForm.reset();
+          this.successMessage = '¡Registro exitoso! Ya puedes iniciar sesión.';
+          this.errorMessage = null;
+          console.log('Registro exitoso', res);
+          
+        },
+        error: (err) => {
+          console.error('Error en el registro:', err.message);
+          this.errorMessage = err.message; // Mostrar en la vista
+          this.successMessage = null;
+        }
+      });
     }
     else if(this.selectedUser?.value==="businessData"){
       let user_data:Business = {email:this.email?.value, nameBusiness:this.nameBusiness?.value, cuit:this.cuit?.value, phoneNumber:this.phoneNumberBusiness?.value, address:this.address?.value, category:this.category?.value, registration_date:new Date()};
       
-      this.signupService.signup('signup/business', {password:this.password?.value, ...user_data}).subscribe(response=>console.log(response));
+      this.signupService.signup('signup/business', {password:this.password?.value, ...user_data}).subscribe({
+        next: (res) => {
+          console.log('Registro exitoso', res);
+        },
+        error: (err) => {
+          console.error('Error en el registro:', err.message);
+          this.errorMessage = err.message; // Mostrar en la vista
+        }
+      });
     }
   }
 
