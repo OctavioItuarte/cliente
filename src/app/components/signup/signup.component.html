@@ -2,68 +2,142 @@
     <h2 class="mb-4">Sign Up</h2>
     <form [formGroup]="signUpForm" class="p-4 rounded-4 p row">
         <div class="col-5">
-            <div class="form-group">
-                <input type="email" id="email" class="form-control" formControlName="email" [(ngModel)]="email" placeholder="Ingresa un email" required/><br>
-            
-                <input type="password" id="pwd" class="form-control" formControlName="pwd" [(ngModel)]="password" placeholder="Contraseña" required/><br>
-            
-                <input type="password" id="repeated-pwd" class="form-control" formControlName="r_pwd" [(ngModel)]="repeated_pwd" placeholder="Repite la contraseña" required/><br>
+            <div class="cross-validation" [class.cross-validation-error]="signUpForm.hasError('comparePassword') && (signUpForm.touched || signUpForm.dirty)">
+                
+                <!--<pre>{{signUpForm.value | json}}</pre>-->
+                <div class="form-group position-relative">
+                    <input type="email" id="email" class="form-control" formControlName="email" placeholder="Ingresa un email" required/>
+                    
+                    @if (email?.invalid && (email?.dirty || email?.touched)) {
+                        
+                        @if (email?.hasError('required')) {
+                        <small class="text-danger mt-1 d-block">
+                            Se requiere un email.
+                        </small>
+                        }
+                        
+                    }
+                </div>
+                <div class="form-group position-relative">
+                    <input type="password" id="pwd" class="form-control" formControlName="password" placeholder="Contraseña" required/>
+                
+                    @if (password?.invalid && (password?.dirty || password?.touched)) {
+                        
+                        @if (password?.hasError('required')) {
+                        <small class="text-danger mt-1 d-block">
+                            Se requiere una contraseña.
+                        </small>
+                        }
+                        @if (password?.hasError('minlength')) {
+                            <small class="text-danger mt-1 d-block">
+                                La contraseña debe tener 6 caracteres o mas.
+                            </small>
+                        }
+                        
+                    }
+                </div>
+                <div class="form-group position-relative">
+                    <input type="password" id="repeated-pwd" class="form-control" formControlName="r_pwd" placeholder="Repite la contraseña" required/>
+                
+                    @if (r_pwd?.invalid && (r_pwd?.dirty || r_pwd?.touched)) {
+                        
+                        @if (r_pwd?.hasError('required')) {
+                        <small class="text-danger mt-1 d-block">
+                            Se requiere este campo
+                        </small>
+                        }
+                        
+                    }
+                    @if (signUpForm.hasError('comparePassword') && (signUpForm.touched || signUpForm.dirty)) {
+                        <small class="cross-validation-error-message text-danger mt-1 d-block">
+                            Las contraseñas no coinciden
+                        </small>
+                    }
+                </div>
             </div>
-            <div formGroupName="user">
-                <label class="form-check-label font-weight-normal fs-7">
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-semibold">
                     Seleccione tipo de usuario
-                </label><br>
-                <div class="form-check">
-                    <input class="form-check-input form-control" formControlName="client" type="radio" name="user" value="signupClient" [(ngModel)]="checkedSignup">
-                    <label class="form-check-label font-weight-normal fs-7">
+                </label>
+              
+                <div class="form-check mb-2">
+                    <input
+                    class="form-check-input"
+                    type="radio"
+                    formControlName="selectedUser"
+                    id="radioCliente"
+                    value="clientData"
+                    />
+                    <label class="form-check-label ms-2" for="radioCliente">
                         Cliente
-                    </label><br>
+                    </label>
                 </div>
+              
                 <div class="form-check">
-                    <input class="form-check-input form-control" formControlName="business" type="radio" name="user" value="signupBusiness" [(ngModel)]="checkedSignup">
-                    <label class="form-check-label font-weight-normal fs-7">
+                    <input
+                    class="form-check-input"
+                    type="radio"
+                    formControlName="selectedUser"
+                    id="radioTienda"
+                    value="businessData"
+                    />
+                    <label class="form-check-label ms-2" for="radioTienda">
                         Tienda
-                    </label><br>
+                    </label>
                 </div>
             </div>
+              
+            
         </div>
-        @if(checkedSignup==="signupClient"){
-            <div class="col-5 form-group">
+        
+        @if(selectedUser?.value==="clientData"){
+            <div class="col-5" formGroupName="clientData">
                 <div>
-                    <input type="text" id="fname" name="fname" class="form-control" formControlName="fname" [(ngModel)]="user_data.name.firstName" placeholder="Nombre"><br>
+                    <input type="text" id="fname" name="fname" class="form-control" formControlName="firstName" placeholder="Nombre"><br>
                 </div>
                 <div>
-                    <input type="text" id="lname" name="lname" class="form-control" formControlName="lname" [(ngModel)]="user_data.name.lastName" placeholder="Apellido"><br>
+                    <input type="text" id="lname" name="lname" class="form-control" formControlName="lastName" placeholder="Apellido"><br>
                 </div>
+                <div class="mb-3">
+                    <label for="birthdate" class="label-custom">
+                      Fecha de nacimiento
+                    </label>
+                    <input type="date" id="birthdate" class="form-control" formControlName="birthdate" />
+                  </div>
+                  
                 <div>
-                    <label class="fw-semibold fs-6" for="birthdate">Fecha de nacimiento</label><br>
-                    <input type="date" id="birthdate" class="form-control" [(ngModel)]="user_data.birthdate" [ngModelOptions]="{standalone: true}"><br>
+                    <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber" placeholder="Número de teléfono"><br>
                 </div>
-                <div>
-                    <input type="text" id="phoneNumber" class="form-control" [(ngModel)]="user_data.phoneNumber" [ngModelOptions]="{standalone: true}" placeholder="Número de teléfono"><br>
-                </div>
-                <button type="submit" class="btn btn-primary" (click)="signupUser()">Registrarse</button>
             </div>
         }
-        @if(checkedSignup==="signupBusiness"){
-            <div class="col-5 form-group">
+        @if(selectedUser?.value==="businessData"){
+            <div class="col-5" formGroupName="businessData">
                 <div>
-                    <input type="text" id="name" class="form-control" [(ngModel)]="business_data.name" [ngModelOptions]="{standalone: true}" placeholder="Nombre"><br>
+                    <input type="text" id="name" class="form-control" formControlName="nameBusiness" placeholder="Nombre"><br>
                 </div>
                 <div>
-                    <input type="text" id="cuit" class="form-control" [(ngModel)]="business_data.cuit" [ngModelOptions]="{standalone: true}" placeholder="CUIT"><br>
+                    <input type="text" id="cuit" class="form-control" formControlName="cuit" placeholder="CUIT"><br>
                 </div>
                 <div>
-                    <input type="text" id="address" class="form-control" [(ngModel)]="business_data.address" [ngModelOptions]="{standalone: true}" placeholder="Dirección"><br>
+                    <input type="text" id="address" class="form-control" formControlName="address" placeholder="Dirección"><br>
                 </div>
                 <div>
-                    <input type="text" id="phoneNumber" class="form-control" [(ngModel)]="business_data.phoneNumber" [ngModelOptions]="{standalone: true}" placeholder="Número de teléfono"><br>
+                    <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber" placeholder="Número de teléfono"><br>
                 </div>
                 <div>
-                    <input type="text" id="category" class="form-control" [(ngModel)]="business_data.category" [ngModelOptions]="{standalone: true}" placeholder="Categoría"><br>
+                    <input type="text" id="category" class="form-control" formControlName="category" placeholder="Categoría"><br>
                 </div>
-                <button type="submit" class="btn btn-primary" (click)="signupBusiness()">Registrarse</button>
             </div>
         }
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit"
+                    class="btn btn-primary btn-lg custom-register-btn px-5 py-2"
+                    (click)="signupUser()"
+                    [disabled]="signUpForm.invalid">
+              <i class="bi bi-person-plus-fill me-2"></i>
+              Registrarse
+            </button>
+          </div>
     </form>
 </div>
