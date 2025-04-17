@@ -21,6 +21,12 @@
           <span class="total-amount">{{total$ | async | currency}}</span>
         </div>
     </div>
+
+    <div class="checkout-button">
+      <button (click)="checkout()" class="btn-checkout">
+        Finalizar compra
+      </button>
+    </div>
 </div>
 <!--
 <h3>Carrito de compras</h3>

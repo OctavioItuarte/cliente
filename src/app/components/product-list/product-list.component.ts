@@ -4,10 +4,11 @@ import { CartService } from '../../services/cart/cart.service';
 import { CartComponent } from '../cart/cart.component';
 import { ProductDataService } from '../../services/product-data/product-data.service';
 import { ActivatedRoute } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-list',
-  imports: [CartComponent],
+  imports: [CartComponent, CurrencyPipe],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })

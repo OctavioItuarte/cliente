@@ -26,7 +26,7 @@
                 </td>
                 <td>{{product.name}}</td>
                 <td>{{product.description}}</td>
-                <td>{{product.price}}</td>
+                <td>{{product.price | currency}}</td>
                 @if (product.stock > 0) {
                   <td>{{product.stock}}</td>
                   <td>

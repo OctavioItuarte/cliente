@@ -23,4 +23,9 @@ export class CartComponent {
     this.cart.addToCart(product);
     product.quantity = 0;
   }
+
+  checkout(): void {
+    alert('Gracias por su compra');
+    this.cart.clearCart();
+  }
 }

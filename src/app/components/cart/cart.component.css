@@ -82,3 +82,25 @@
     background-color: #f8fafc;
     transition: background-color 0.2s ease;
 }
+
+.checkout-button {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+  
+.btn-checkout {
+    background-color: #28a745; /* verde */
+    color: white;
+    padding: 1rem;
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.btn-checkout:hover {
+    background-color: #218838; /* verde más oscuro al pasar el mouse */
+}

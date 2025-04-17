@@ -34,13 +34,9 @@ export class CartService {
       }
     } else {
       // Si el producto ya está en el carrito, verifica si la cantidad total no supera el stock
-      const totalQuantity = item.quantity + product.quantity;
-      console.log('Item quantity:', item.quantity);
-      console.log('Product quantity:', product.quantity);
-      console.log('Total quantity:', totalQuantity);
-      console.log('Product.stock', product.stock);
+      const totalQuantity = product.quantity;
       if (totalQuantity <= product.stock) {
-        item.quantity = totalQuantity;
+        item.quantity = totalQuantity + item.quantity;
         product.stock -= product.quantity;
       } else {
         alert('No hay suficiente stock para agregar más unidades de este producto.');
