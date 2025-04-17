@@ -13,11 +13,19 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       next: () => {},
       error: (error) => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
-          // La sesión ha expirado
-          console.log('Sesión expirada');
-          alert('No hay una sesión activa. Por favor, inicia sesión.');
-          loginService.clearSession();
-          router.navigate(['/login']);
+          const isLoginRoute = req.url.includes('/login');
+
+          if (isLoginRoute) {
+            // Error al intentar iniciar sesión
+            alert('Email o contraseña incorrectos.');
+          }
+          else{
+            // La sesión ha expirado
+            console.log('Sesión expirada');
+            alert('No hay una sesión activa. Por favor, inicia sesión.');
+            loginService.clearSession();
+            router.navigate(['/login']);
+          }
         }
       }
     })
