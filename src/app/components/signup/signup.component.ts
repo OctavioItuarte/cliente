@@ -169,11 +169,15 @@ export class SignupComponent implements OnInit{
       
       this.signupService.signup('signup/business', {password:this.password?.value, ...user_data}).subscribe({
         next: (res) => {
+          this.signUpForm.reset();
+          this.successMessage = '¡Registro exitoso! Ya puedes iniciar sesión.';
+          this.errorMessage = null;
           console.log('Registro exitoso', res);
         },
         error: (err) => {
           console.error('Error en el registro:', err.message);
           this.errorMessage = err.message; // Mostrar en la vista
+          this.successMessage = null;
         }
       });
     }
