@@ -90,12 +90,32 @@ export class CreateProductsComponent implements OnInit{
     // ------------------------ AGREGAR PETICION A LA API PARA AGREGAR EL PRODUCTO
     var product= {...this.new_product};
 
-    this.productDataService.postBusinessProduct(JSON.stringify(product))
+    const formData = new FormData();
+
+    formData.append('name', this.new_product.name);
+    formData.append('price', this.new_product.price.toString());
+    formData.append('stock', this.new_product.stock.toString());
+    formData.append('description', this.new_product.description);
+    if (this.selectedImage) {
+        formData.append('image', this.selectedImage); // "image" debe coincidir con multer.single('image')
+    }
+    this.productDataService.postBusinessProduct(formData)
+
     .subscribe(response => {
       console.log(response);
       product = response as Product;
       this.products_list.push(product);
     });
+  }
+
+  selectedImage: File | null = null;
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedImage = file;
+      this.new_product.image = file.name; // Para mostrar el nombre si querés
+    }
   }
 }
 

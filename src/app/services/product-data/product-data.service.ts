@@ -20,7 +20,7 @@ export class ProductDataService {
 
   postBusinessProduct(product:any){
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(`${URL}/products`, product, {headers,withCredentials:true});
+    return this.http.post(`${URL}/products`, product, {withCredentials:true});
   }
 
   putBusinessProduct(idProduct: string, bodyUpdate: any){

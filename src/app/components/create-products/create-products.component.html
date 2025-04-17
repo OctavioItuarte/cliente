@@ -61,13 +61,18 @@
                 </td>
                 <td>
                     <div class="mb-3">
-                        <input type="file" class="form-control visually-hidden" id="imagen" accept="image/*"
-                        [(ngModel)]="new_product.image">
-                        <label for="imagen" class="btn btn-light">
-                            <i class="bi bi-archive"></i> 
-                        </label>
+                      <input
+                        type="file"
+                        class="form-control visually-hidden"
+                        id="imagen"
+                        accept="image/*"
+                        (change)="onFileSelected($event)"
+                      >
+                      <label for="imagen" class="btn btn-light">
+                        <i class="bi bi-archive"></i> 
+                      </label>
                     </div>
-                </td>
+                  </td>
                 <td>
                 </td>
                 <td></td>
