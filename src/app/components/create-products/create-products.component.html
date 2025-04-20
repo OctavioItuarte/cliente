@@ -37,13 +37,13 @@
             <tr>
                 <td>
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="nombre" value="Ingrese el nombre"
+                        <input type="text" class="form-control" id="nombre"
                         [(ngModel)]="new_product.name">
                     </div>
                 </td>
                 <td>
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="nombre" value="Ingrese el nombre"
+                        <input type="text" class="form-control" id="nombre"
                         [(ngModel)]="new_product.description">
                     </div>
                 </td>
@@ -63,7 +63,7 @@
                     <div class="mb-3">
                       <input
                         type="file"
-                        class="form-control visually-hidden"
+                        class="form-control"
                         id="imagen"
                         accept="image/*"
                         (change)="onFileSelected($event)"
@@ -72,13 +72,13 @@
                         <i class="bi bi-archive"></i> 
                       </label>
                     </div>
-                  </td>
+                </td>
                 <td>
                 </td>
                 <td></td>
                 <td></td>
                 <td class="text-center">
-                    <input type="checkbox" id="selectAll" (change)="toggleSelectAll($event)" class="form-check-input">
+                    <input type="checkbox" id="selectAll" (change)="toggleSelectAll($event)" class="form-check-input styled-checkbox" >
                     <span class="ms-2">Seleccionar todo</span>
                 </td>
             </tr>
@@ -114,8 +114,15 @@
 
                 </td>
                 <td>
-                    <input type="checkbox" [id]="'checkbox' + i" (change)="onSelectRow($event, i)" class="form-check-input"> <!-- Casilla por fila -->
-                </td>
+                    <div class="form-check d-flex justify-content-center">
+                      <input 
+                        type="checkbox" 
+                        class="form-check-input styled-checkbox" 
+                        [id]="'checkbox' + i" 
+                        (change)="onSelectRow($event, i)"
+                      >
+                    </div>
+                  </td>
             </tr>
             
         </tbody>
