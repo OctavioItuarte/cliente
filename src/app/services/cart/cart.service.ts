@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../../models/product';
 import { BehaviorSubject, map, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +12,12 @@ export class CartService {
   private _cartList: Product[] = [];
   cartList: BehaviorSubject<Product[]> = new BehaviorSubject(this._cartList);
 
+  private checkoutDoneSource = new Subject<void>();
+  checkoutDone$ = this.checkoutDoneSource.asObservable();
+
   total$: Observable<number>;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.total$ = this.cartList.pipe(map(products => this.getTotalPrice(products))
   );}
 
@@ -44,6 +49,14 @@ export class CartService {
       }
     }
     this.cartList.next(this._cartList)
+  }
+
+  checkout(cart: Product[]): Observable<any> {
+    return this.http.post('http://localhost:3000/productCheckout', { cart }, { withCredentials: true });
+  }
+
+  emitCheckoutDone() {
+    this.checkoutDoneSource.next();
   }
 
   clearCart(): void {

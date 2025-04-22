@@ -3,6 +3,7 @@ import { CartService } from '../../services/cart/cart.service';
 import { Product } from '../../models/product';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cart',
@@ -25,7 +26,17 @@ export class CartComponent {
   }
 
   checkout(): void {
-    alert('Gracias por su compra');
-    this.cart.clearCart();
+    this.cartList$.pipe(take(1)).subscribe(cart => {
+      this.cart.checkout(cart).subscribe({
+        next: (res) => {
+          alert(res.message);
+          this.cart.clearCart();
+          this.cart.emitCheckoutDone();
+        },
+        error: (err) => {
+          alert('Error: ' + err.error.message);
+        }
+      });
+    });
   }
 }
