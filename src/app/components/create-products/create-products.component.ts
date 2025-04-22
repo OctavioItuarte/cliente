@@ -15,20 +15,21 @@ import { LoginService } from '../../services/login/login.service';
 })
 
 export class CreateProductsComponent implements OnInit{
-
-  constructor(private productDataService:ProductDataService, private http:HttpClient, private loginService: LoginService){}
+  
+  idBusiness="";
+  
+  constructor(private productDataService:ProductDataService, private http:HttpClient, private loginService: LoginService){
+    this.idBusiness = this.loginService.getIdBusiness();
+  }
 
   products_list: Product[] =[];
+
   ngOnInit(): void {
-    const URL = "http://localhost:3000";
-    var idBusiness = this.loginService.getIdBusiness();
-    this.productDataService.getBusinessProducts(idBusiness).subscribe(response=> 
+    this.productDataService.getBusinessProducts(this.idBusiness).subscribe(response=> 
     this.products_list=response as Product[]);
   }
   
   new_product:Product={_id:"",_id_business:"",description:"", name:"",price:0,stock:0,image:"",last_change:new Date(),quantity:0};
-
-  changed_product: Product={_id:"",_id_business:"",description:"", name:"",price:0,stock:0,image:"",last_change:new Date(),quantity:0};
 
   selectedRows: Set<number> = new Set();  // Almacenará los índices de las filas seleccionadas
 
@@ -55,35 +56,36 @@ export class CreateProductsComponent implements OnInit{
     this.selectedRows.forEach((i)=>
       {
         var id=this.products_list[i]._id;
-        this.productDataService.deleteBusinessProduct(id).subscribe(response=>console.log(response));
+        this.productDataService.deleteBusinessProduct(id)
+        .subscribe(response=>{
+          console.log(response);
+          this.productDataService.getBusinessProducts(this.idBusiness)
+            .subscribe(response=> 
+          this.products_list=response as Product[]
+          );
+        });
     });
 
     //this.products_list = this.products_list.filter((_, index) => !this.selectedRows.has(index));
     this.selectedRows.clear();  // Limpiar las filas seleccionadas después de eliminar
   }
 
-  updatingProduct: string | null = null;
+  updatingProduct: string = "";
   
   activateEdit(product: Product){
     this.updatingProduct = product._id;
-    this.changed_product = product;
     this.new_product = { ...product };
   }
 
   updateProduct(){
     // ------------------------ AGREGAR PETICION PARA ACTUALIZAR EL PRODUCTO
     var product= {...this.new_product};
-    this.productDataService.putBusinessProduct(this.changed_product._id, JSON.stringify(product)).subscribe(response=>console.log(response));
+    this.productDataService.putBusinessProduct(this.updatingProduct, JSON.stringify(product))
+    .subscribe(response=>{
+      console.log(response);
+    });
 
-    this.changed_product && (this.changed_product.name = this.new_product.name);
-    this.changed_product && (this.changed_product.description = this.new_product.description);
-    this.changed_product && (this.changed_product.price = this.new_product.price);
-    this.changed_product && (this.changed_product.stock = this.new_product.stock);
-    this.changed_product && (this.changed_product.image = this.new_product.image);
-
-    this.changed_product = {_id:"",_id_business:"",description:"", name:"",price:0,stock:0,image:"",last_change:new Date(),quantity:0};
-
-    this.updatingProduct = null;
+    this.updatingProduct = "";
   }
 
   addProduct(){
@@ -106,6 +108,8 @@ export class CreateProductsComponent implements OnInit{
       product = response as Product;
       this.products_list.push(product);
     });
+
+    this.selectedImage = null;
   }
 
   selectedImage: File | null = null;
