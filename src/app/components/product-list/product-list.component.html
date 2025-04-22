@@ -28,7 +28,7 @@
                 <td>{{product.description}}</td>
                 <td>{{product.price | currency}}</td>
                 @if (product.stock > 0) {
-                  <td>{{product.stock}}</td>
+                  <td></td>
                   <td>
                     <button class="btn btn-primary btn-sm" (click)="downQuantity(product)">-</button>
                     {{product.quantity}}
